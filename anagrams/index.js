@@ -8,44 +8,54 @@
 //   anagrams('RAIL! SAFETY!', 'fairy tales') --> True
 //   anagrams('Hi there', 'Bye there') --> False
 
-function anagrams(stringA, stringB) {
-  //filter out the cases not needed
-  const wordA = stringA.replace(/[^\w]/g,"").toLowerCase();
+function anagrams(stringA, stringB){
+  return filterString(stringA) === filterString(stringB);
+}
 
-  const wordB = stringB.replace(/[^\w]/g,"").toLowerCase();
-
-  console.log(wordB);
-  //create a character map to compare the strings.
-  let wordMapA = {};
-  let wordMapB = {};
-
-  for(let char of wordA){
-    if(!wordMapA[char]){
-      wordMapA[char] = 1;
-    }else{
-      wordMapA[char]++;
-    }
-  }
-  console.log(wordMapA);
-  for(let char of wordB){
-    if(!wordMapB[char]){
-      wordMapB[char] = 1;
-    }else{
-      wordMapB[char]++;
-    }
-  }
-
-  //compare the two map if they are equal
-  if(wordA.length === wordB.length){
-    for(let prop in wordMapA){
-      if(wordMapA[prop] !== wordMapB[prop]){
-        return false;
-      }
-    }
-
-    return true;
-  }
-  return false;
+function filterString(str){
+  return str.replace(/[^\w]/g,"")
+            .toLowerCase()
+            .split('')
+            .sort()
+            .join();
 }
 
 module.exports = anagrams;
+
+//first solution
+
+// function anagrams(stringA, stringB) {
+//   //filter out the cases not needed
+//   const wordA = stringA.replace(/[^\w]/g,"").toLowerCase();
+//
+//   const wordB = stringB.replace(/[^\w]/g,"").toLowerCase();
+//
+//   console.log(wordB);
+//   //create a character map to compare the strings.
+//   let wordMapA = buildcharMap(wordA);
+//   let wordMapB = buildcharMap(wordB);
+//
+//   //compare the two map if they are equal
+//   if(wordA.length !== wordB.length){
+//     return false;
+//   }
+//
+//   for(let prop in wordMapA){
+//     if(wordMapA[prop] !== wordMapB[prop]){
+//       return false;
+//     }
+//   }
+//   return true;
+// }
+//
+// function buildcharMap(str){
+//   const charMap = {};
+//   for(let char of str){
+//     if(!charMap[char]){
+//       charMap[char] = 1;
+//     }else{
+//       charMap[char]++;
+//     }
+//   }
+//   return charMap;
+// }
