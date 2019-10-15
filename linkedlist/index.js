@@ -91,10 +91,73 @@ class LinkedList {
     }
   }
 
+  //return node with a given index, index starts at 0;
+  getAt(index){
+    if(!this.head){
+      return null;
+    }
+    let node = this.head;
+    let counter = 0;
+
+    while(node){
+      if(index === counter){
+        return node;
+      }
+      counter++;
+      node = node.next;
+    }
+    //index out of bound.
+    return null;
+  }
+
+  removeAt(index){
+    if(!this.head){
+      return null;
+    }
+
+    if(index === 0){
+      this.head =  this.head.next;
+      return;
+    }
 
 
+    let previous = this.getAt(index-1);
+    if(!previous || !previous.next){
+      return null;
+    }
+    previous.next = previous.next.next;
+  }
 
+  insertAt(data, index){
+    if(!this.head || index ===0){
+      this.insertFirst(data);
+      return;
+    }
 
+    const previous = this.getAt(index - 1) || this.getLast();
+    const node = new Node(data, previous.next);
+    previous.next = node;
+
+  }
+
+  forEach(fn){
+    let node = this.head;
+    let counter = 0;
+
+    while (node) {
+      fn(node, counter);
+      node = node.next;
+      counter++;
+    }
+  }
+
+  *[Symbol.iterator]() {
+    let node = this.head;
+    while (node) {
+      yield node;
+      node = node.next;
+    }
+  }
 }
 
 module.exports = { Node, LinkedList };
