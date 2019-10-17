@@ -27,6 +27,34 @@ class Node {
   }
 }
 
-class Tree {}
+class Tree {
+  constructor(){
+    this.root = null;
+  }
+
+  traverseBF(fn){
+    const arr = [this.root];
+    while(arr.length){
+      const node = arr.shift();
+
+      //arr.push(...node.children) //ES6 method alternative for the below for...of Loop
+      for(let child of node.children){
+        arr.push(child);
+      }
+      fn(node);
+    }
+  }
+
+  traverseDF(fn){
+    const arr = [this.root];
+
+    while(arr.length){
+      const node = arr.shift();
+
+      arr.unshift(...node.children);//take every element and add them to array.
+      fn(node);
+    }
+  }
+}
 
 module.exports = { Tree, Node };
